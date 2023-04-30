@@ -19,7 +19,7 @@ import com.squareup.moshi.JsonClass
 //    val imgSrcUrl: Products = data[4]
 //
 //)
-@Parcelize
+
 data class Products(
     val productId: String,
     val productName: String,

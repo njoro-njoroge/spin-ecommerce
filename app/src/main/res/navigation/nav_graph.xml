@@ -18,8 +18,8 @@
         android:name="com.njoro.spin.ui.productdetails.ProductDetailsFragment"
         android:label="fragment_product_details"
         tools:layout="@layout/fragment_product_details">
-<!--        <argument-->
-<!--            android:name="selectedProduct"-->
-<!--            app:argType="com.njoro.spin.network.Products"/>-->
+        <argument
+            android:name="selectedProducts"
+            app:argType="com.njoro.spin.network.Products"/>
     </fragment>
 </navigation>

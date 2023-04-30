@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="product"
+            type="com.njoro.spin.network.Products" />
+    </data>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:id="@+id/card_view"
+        app:cardUseCompatPadding="true"
+        android:background="?selectableItemBackground"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/purple_700"
+        app:strokeWidth="1dp"
+        app:cardCornerRadius="12dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/mars_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:padding="2dp"
+            app:imageUrl="@{product.imgSrcUrl}"
+            tools:src="@tools:sample/backgrounds/scenic"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txv_type"
+            android:layout_marginStart="15dp"
+            android:tooltipText="type"
+            android:text="@{product.productName}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@{String.valueOf(product.price)}"/>
+
+</LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -3,6 +3,7 @@ package com.njoro.spin.network
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
 
 
 //@JsonClass(generateAdapter = true)
@@ -19,7 +20,7 @@ import com.squareup.moshi.JsonClass
 //    val imgSrcUrl: Products = data[4]
 //
 //)
-
+@Parcelize
 data class Products(
     val productId: String,
     val productName: String,
@@ -28,5 +29,5 @@ data class Products(
 //    val description: String,
     @Json(name = "image")
     val imgSrcUrl: String
-)
+):Parcelable
 

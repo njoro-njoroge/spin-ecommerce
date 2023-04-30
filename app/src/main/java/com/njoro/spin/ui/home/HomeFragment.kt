@@ -48,12 +48,12 @@ private val viewModel: HomeViewModel by lazy {
           viewModel.displayProductDetails(it)
         })
 
-//        viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, Observer {
-//            if(null != it){
-//                this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(it))
-//                viewModel.displayProductDetailsComplete()
-//            }
-//        })
+        viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, Observer {
+            if(null != it){
+                this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(it))
+                viewModel.displayProductDetailsComplete()
+            }
+        })
 
         val textView: TextView = binding.textStatus
         viewModel.text.observe(viewLifecycleOwner) {

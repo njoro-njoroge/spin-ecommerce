@@ -1,4 +1,4 @@
-package com.njoro.spin.ui.notifications
+package com.njoro.spin.ui.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.njoro.spin.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -30,8 +31,12 @@ class LoginFragment : Fragment() {
 
         val textView: TextView = binding.textNotifications
         notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            binding.textNotifications.text = it
         }
+
+         binding.txvLogin.setOnClickListener {
+             this.findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+         }
         return root
     }
 

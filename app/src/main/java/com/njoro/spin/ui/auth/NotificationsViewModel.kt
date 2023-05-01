@@ -1,4 +1,4 @@
-package com.njoro.spin.ui.notifications
+package com.njoro.spin.ui.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -33,13 +33,13 @@ class RegisterFragment : Fragment() {
         val root: View = binding.root
 
 
-
 //        binding.btnRegister.setOnClickListener {
 //            viewModel.register()
 //            binding.progressBar.visibility=View.VISIBLE
 //            binding.textNotifications.text=viewModel.text.toString()
 ////            Toast.makeText(context, viewModel.text, Toast.LENGTH_SHORT).show()
 //        }
+
 
         return root
     }
@@ -89,9 +89,9 @@ class RegisterFragment : Fragment() {
                 }
                 else -> {}
 
-        }}
+            }
 
-
+        }
     }
     override fun onDestroyView() {
         super.onDestroyView()

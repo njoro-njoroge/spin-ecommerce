@@ -28,7 +28,7 @@
         android:label="DashboardFragment" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.njoro.spin.ui.auth.LoginFragment"
+        android:name="com.njoro.spin.ui.auth.login.LoginFragment"
         android:label="Login" >
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"

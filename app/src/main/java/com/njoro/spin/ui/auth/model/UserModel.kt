@@ -9,9 +9,9 @@ data class RegisterResponse(
 
 data class UserRegister(
     @Json(name = "firstName")
-    var firstName: String="",
+    var firstName: String = "",
     @Json(name = "lastName")
-    var lastName: String="",
+    var lastName: String = "",
     @Json(name = "username")
     var username: String = "",
     @Json(name = "phoneNumber")
@@ -20,4 +20,24 @@ data class UserRegister(
     var email: String = "",
     @Json(name = "password")
     var password: String = ""
+)
+
+
+data class LoginResponse(
+    val status: Boolean,
+    val message: String,
+    @Json(name="userId")
+    val id: String = "",
+    val firstName: String = "",
+    val lastName: String = "",
+    val email: String = "",
+    val username: String = "",
+    val phoneNo: String = "",
+    val userType: String = "",
+)
+data class UserLogin(
+    @Json(name = "username")
+    val username: String = "",
+    @Json(name = "password")
+    val password: String = ""
 )

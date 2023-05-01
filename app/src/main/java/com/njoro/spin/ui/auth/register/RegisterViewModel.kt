@@ -11,7 +11,7 @@ import com.njoro.spin.ui.auth.repository.RegisterRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
-class RegisterViewModel(app: Application,) : AndroidViewModel(app) {
+class RegisterViewModel(app: Application) : AndroidViewModel(app) {
 
     private val repository = RegisterRepository(app)
     val user = UserRegister()
@@ -35,17 +35,5 @@ class RegisterViewModel(app: Application,) : AndroidViewModel(app) {
             return
         }
     }
-    fun login(username: String, password: String) {
 
-            if(username.isNotEmpty() && password.isNotEmpty()){
-                _text.value = "Loading..."
-                repository.register(user)
-            }else{
-
-                Log.e("TAG", "Please enter all the details")
-                _text.value = "Please enter all the details"
-
-            }
-
-    }
 }

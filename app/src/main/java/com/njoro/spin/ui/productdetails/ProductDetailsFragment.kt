@@ -5,18 +5,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.njoro.ecommerce.utils.IPreferenceHelper
+import com.njoro.ecommerce.utils.PreferenceManager
 import com.njoro.spin.MainActivity
 import com.njoro.spin.databinding.FragmentProductDetailsBinding
+import com.njoro.spin.ui.productdetails.repository.AddToCartResponseResults
 
 class ProductDetailsFragment : Fragment() {
+
+    private var _binding : FragmentProductDetailsBinding? = null
+    val binding get() = _binding
+    private val pref: IPreferenceHelper by lazy {
+        PreferenceManager(requireContext())
+    }
+    private var productId: String? =null
 
     companion object {
         fun newInstance() = ProductDetailsFragment()
     }
-
-
+    private lateinit var  viewModel: ProductDetailsViewModel
 
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreateView(
@@ -24,21 +34,119 @@ class ProductDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val application = requireNotNull(activity).application
-        val binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner= this
+        _binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
+        _binding!!.lifecycleOwner= this
         val products = ProductDetailsFragmentArgs.fromBundle(arguments!!).selectedProducts
 
         val viewModelFactory = ProductDetailViewModelFactory(products, application)
-
-          binding.viewModel = ViewModelProvider(this, viewModelFactory).get(ProductDetailsViewModel::class.java)
-
+//      viewModelAdd= ViewModelProvider(requireActivity())[AddToCartViewModel::class.java]
+         viewModel = ViewModelProvider(this, viewModelFactory)[ProductDetailsViewModel::class.java]
+        _binding!!.model = viewModel
         (activity as MainActivity).hideBottomNav()
 
-//       gi
+        productId = products.productId
 
-        return binding.root
+        binding?.progressBar?.visibility= View.GONE
+//        binding!!.btnCart.setOnClickListener {
+//            addToCart()
+//        }
+
+        return binding!!.root
 
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        bind()
+
+    }
+
+    private fun bind() {
+        _binding?.apply {
+            btnCart.setOnClickListener {
+                val quantity = edtQuantity.text.toString().trim()
+
+                if(quantity.isEmpty()){
+                    Toast.makeText(context,"Enter item quantity",Toast.LENGTH_SHORT).show()
+                    btnCart.visibility=View.VISIBLE
+                    progressBar.visibility= View.GONE
+
+                    return@setOnClickListener
+                }
+
+                viewModel.addToCart(pref.getUserId(),productId!!,quantity)
+                getResponse()
+           }
+        }
+
+    }
+
+    private fun getResponse(){
+        viewModel.addToCartResponse.observe(viewLifecycleOwner){response ->
+            when(response){
+                is AddToCartResponseResults.Success->{
+//                    Toast.makeText(context, response.success.toString(),Toast.LENGTH_SHORT).show()
+                }
+                is AddToCartResponseResults.Message->{
+                    Toast.makeText(context,response.message,Toast.LENGTH_SHORT).show()
+                }
+                is AddToCartResponseResults.Failure->{
+                    Toast.makeText(context,response.message,Toast.LENGTH_SHORT).show()
+                }
+                is AddToCartResponseResults.IsLoading->{
+                    binding!!.apply {
+                        btnCart.isEnabled = ! response.isLoading
+                        progressBar.visibility = if (response.isLoading) View.VISIBLE else View.GONE
+                    }
+                }
+                else -> {}
+            }
+        }
+
+    }
+
+//    private fun addToCart(){
+//
+//        binding!!.apply {
+//            btnCart.visibility=View.GONE
+//            progressBar.visibility= View.VISIBLE
+//
+//            val quantity = edtQuantity.text.toString().trim()
+//
+//            if(quantity.isEmpty()){
+//                Toast.makeText(context,"Enter item quantity",Toast.LENGTH_SHORT).show()
+//                btnCart.visibility=View.VISIBLE
+//                progressBar.visibility= View.GONE
+//
+//                return
+//            }
+//
+//            viewModel!!.addToCart(pref.getUserId(),productId!!,quantity)
+//        }
+//
+//        viewModel.addToCartResponse.observe(viewLifecycleOwner){response ->
+//            when(response){
+//                is AddToCartResponseResults.Success->{
+//                    Toast.makeText(context, response.success.toString(),Toast.LENGTH_SHORT).show()
+//                }
+//                is AddToCartResponseResults.Message->{
+//                    Toast.makeText(context,response.message,Toast.LENGTH_SHORT).show()
+//                }
+//                is AddToCartResponseResults.Failure->{
+//                    Toast.makeText(context,response.message,Toast.LENGTH_SHORT).show()
+//                }
+//                is AddToCartResponseResults.IsLoading->{
+//                    binding!!.apply {
+//                        btnCart.isEnabled = ! response.isLoading
+//                        progressBar.visibility = if (response.isLoading) View.VISIBLE else View.GONE
+//                    }
+//                }
+//                else -> {}
+//            }
+//        }
+//
+//    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

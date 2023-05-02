@@ -21,6 +21,7 @@ sealed class LoginResponseResult{
     data class IsLoading(val isLoading: Boolean): LoginResponseResult()
     data class Success(val success: Boolean): LoginResponseResult()
     data class Failure(val message: String): LoginResponseResult()
+    data class Token(val token: LoginResponse): LoginResponseResult()
 }
 class LoginRepository(app: Application) {
 
@@ -41,7 +42,8 @@ class LoginRepository(app: Application) {
         ) {
             response.body()?.let { responseData->
                 Log.d("Response from server", responseData.toString())
-                if(responseData.status){
+                if(responseData.status===true){
+                    _loginResponse.value= LoginResponseResult.Token(responseData)
                     _loginResponse.value = LoginResponseResult.IsLoading(false)
                     _loginResponse.value = LoginResponseResult.Success(true)
                     _loginResponse.value= LoginResponseResult.Message(responseData.message)

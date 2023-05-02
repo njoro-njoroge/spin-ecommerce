@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+//        navView.menu.findItem(R.id.loginFragment).isVisible = false
+
 //        showBottomNav()
 
 

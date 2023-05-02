@@ -34,12 +34,14 @@ class ProductDetailsFragment : Fragment() {
 
         (activity as MainActivity).hideBottomNav()
 
-        binding.btnCart.setText(products.productName)
+//       gi
 
         return binding.root
 
     }
 
-
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as MainActivity).showBottomNav()
+    }
 }

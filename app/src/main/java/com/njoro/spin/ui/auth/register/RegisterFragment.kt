@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.njoro.spin.MainActivity
 import com.njoro.spin.R
 import com.njoro.spin.databinding.FragmentLoginBinding
 import com.njoro.spin.databinding.FragmentRegisterBinding
@@ -20,6 +21,7 @@ class RegisterFragment : Fragment() {
 
     companion object {
         fun newInstance() = RegisterFragment()
+
     }
 
     private lateinit var viewModel: RegisterViewModel
@@ -32,7 +34,7 @@ class RegisterFragment : Fragment() {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
+        (activity as MainActivity).hideBottomNav()
 //        binding.btnRegister.setOnClickListener {
 //            viewModel.register()
 //            binding.progressBar.visibility=View.VISIBLE
@@ -95,6 +97,6 @@ class RegisterFragment : Fragment() {
     }
     override fun onDestroyView() {
         super.onDestroyView()
-
+        (activity as MainActivity).showBottomNav()
     }
 }

@@ -29,8 +29,6 @@ enum class CartApiStatus {
 
 class CartViewModel: ViewModel() {
 
-    private val pref: IPreferenceHelper? = null
-
     private var _text = MutableLiveData<String>()
     val text: LiveData<String> = _text
 
@@ -46,13 +44,7 @@ class CartViewModel: ViewModel() {
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    init {
-        getItems()
-    }
-//    var userId = pref?.getUserId()
-
-    fun getItems() {
-        var userId: String = "17"
+    fun getItems(userId: String) {
         coroutineScope.launch {
             Log.e("POST PARAMS", userId)
             val getCartItems = SpinApi.retrofitService.getCartItems(UserIdItems(userId))

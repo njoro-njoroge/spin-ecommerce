@@ -8,10 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import com.njoro.ecommerce.utils.IPreferenceHelper
+import com.njoro.ecommerce.utils.PreferenceManager
 import com.njoro.spin.databinding.FragmentCartBinding
 
 class CartFragment : Fragment() {
 
+    private val pref: IPreferenceHelper by lazy {
+        PreferenceManager(requireContext())
+    }
 //    private var viewModel = CartViewModel()
     private val viewModel: CartViewModel by lazy {
         ViewModelProvider(this).get(CartViewModel::class.java)
@@ -31,7 +36,7 @@ class CartFragment : Fragment() {
 
          })
 //         binding.txvDetails.text =viewModel.items.toString()
-        Toast.makeText(context,viewModel.cartItems.toString(),Toast.LENGTH_SHORT).show()
+        Toast.makeText(context,pref.getEmail(),Toast.LENGTH_SHORT).show()
 
 //        viewModel.status.observe(viewLifecycleOwner){
 //            textView.text = it.toString()
@@ -42,6 +47,13 @@ class CartFragment : Fragment() {
 //            textView.text = it
             Toast.makeText(context,it.toString(),Toast.LENGTH_SHORT).show()
         }
+
+        if(pref.getUsername().isNotEmpty()){
+            viewModel.getItems(pref.getUserId())
+        }else{
+            textView.text="Login to view cart"
+        }
+
      return binding.root
     }
 

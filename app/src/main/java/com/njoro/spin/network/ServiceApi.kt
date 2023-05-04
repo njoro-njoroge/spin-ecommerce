@@ -2,6 +2,9 @@ package com.njoro.spin.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.njoro.spin.ui.auth.model.*
+import com.njoro.spin.ui.cart.model.CartItemsModel
+import com.njoro.spin.ui.cart.model.CartItemsResponse
+import com.njoro.spin.ui.cart.model.UserIdItems
 import com.njoro.spin.ui.productdetails.model.CartModel
 import com.njoro.spin.ui.productdetails.model.CartResponse
 import com.squareup.moshi.Moshi
@@ -43,6 +46,9 @@ interface ServiceApi {
 
     @POST("client/send_to_cart.php")
     fun addToCart(@Body addToCart: CartModel): Call<CartResponse>
+
+    @POST("client/cart_items.php")
+    fun getCartItems(@Body userIdItems: UserIdItems): Deferred<List<CartItemsModel>>
 
 }
 

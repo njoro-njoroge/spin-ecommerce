@@ -15,7 +15,7 @@
  *
  */
 
-package com.njoro.spin
+package com.njoro.spin.ui.cart
 
 import android.view.View
 import android.widget.ImageView
@@ -25,18 +25,18 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.njoro.spin.network.Products
-import com.njoro.spin.ui.home.ProductAdapter
-import com.njoro.spin.ui.home.ProductApiStatus
+import com.njoro.spin.R
+import com.njoro.spin.ui.cart.model.CartItemsModel
+import com.njoro.spin.ui.cart.model.CartItemsResponse
 
 
-@BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<Products>?) {
-    val adapter = recyclerView.adapter as ProductAdapter
+@BindingAdapter("cartListData")
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<CartItemsModel>?) {
+    val adapter = recyclerView.adapter as CartItemsAdapters
     adapter.submitList(data)
 }
 
-@BindingAdapter("imageUrl")
+@BindingAdapter("cartImageUrl")
 fun bindingImage(imgView: ImageView, imgUrl: String ?){
     imgUrl?.let {
         val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
@@ -49,36 +49,37 @@ fun bindingImage(imgView: ImageView, imgUrl: String ?){
     }
 }
 
-@BindingAdapter("productApiStatus")
-fun bindStatus(statusImageView: ImageView, status: ProductApiStatus?) {
+@BindingAdapter("CartApiStatus")
+fun bindStatus(statusImageView: ImageView, status: CartApiStatus?) {
     when (status) {
-        ProductApiStatus.LOADING -> {
+        CartApiStatus.LOADING -> {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.ic_search)
         }
-        ProductApiStatus.ERROR -> {
+        CartApiStatus.ERROR -> {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.ic_no_network)
         }
-        ProductApiStatus.SUCCESS -> {
+        CartApiStatus.SUCCESS -> {
             statusImageView.visibility = View.GONE
         }
         else -> {}
     }
 }
 @BindingAdapter("apiTextViewStatus")
-fun bindTextStatus(txvStatus: TextView, status: ProductApiStatus?) {
+fun bindTextStatus(txvStatus: TextView, status: CartApiStatus?) {
     when (status) {
-        ProductApiStatus.LOADING -> {
+        CartApiStatus.LOADING -> {
             txvStatus.visibility = View.VISIBLE
         }
-        ProductApiStatus.ERROR -> {
+        CartApiStatus.ERROR -> {
             txvStatus.visibility = View.VISIBLE
             txvStatus.text = "Something went wrong"
         }
-        ProductApiStatus.SUCCESS -> {
+        CartApiStatus.SUCCESS -> {
             txvStatus.visibility = View.GONE
         }
         else -> {}
     }
 }
+

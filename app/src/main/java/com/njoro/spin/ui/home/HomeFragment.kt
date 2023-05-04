@@ -13,19 +13,6 @@ import com.njoro.spin.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
-//    private var binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-//    private val binding get() = _binding!!
-
-//    private val viewModel : HomeViewModel by lazy {
-//        ViewModelProvider(this).get(HomeViewModel::class.java)
-//    }
-
-//    private val viewModel: HomeViewModel by lazy {
-//        ViewModelProvider(this)[HomeViewModel::class.java]
-//    }
 private val viewModel: HomeViewModel by lazy {
     ViewModelProvider(this).get(HomeViewModel::class.java)
 }

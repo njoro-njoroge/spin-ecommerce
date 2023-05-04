@@ -5,21 +5,6 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
-
-//@JsonClass(generateAdapter = true)
-//data class ProductsResponse(val products: List<Products>)
-//
-//@JsonClass(generateAdapter = true)
-
-//data class Products(
-//    @Json(name = "products")
-//    val data: List<Products>,
-//    val productId: Products = data[0],
-//    val productName: Products = data[1],
-//    val price: Products = data[2],
-//    val imgSrcUrl: Products = data[4]
-//
-//)
 @Parcelize
 data class Products(
     val productId: String,

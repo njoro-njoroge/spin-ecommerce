@@ -3,8 +3,10 @@ package com.njoro.spin.network
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.njoro.spin.ui.auth.model.*
 import com.njoro.spin.ui.cart.model.CartItemsModel
-import com.njoro.spin.ui.cart.model.CartItemsResponse
 import com.njoro.spin.ui.cart.model.UserIdItems
+import com.njoro.spin.ui.checkout.Model.CheckOut
+import com.njoro.spin.ui.checkout.Model.CheckoutResponse
+import com.njoro.spin.ui.checkout.Model.Counties
 import com.njoro.spin.ui.productdetails.model.CartModel
 import com.njoro.spin.ui.productdetails.model.CartResponse
 import com.squareup.moshi.Moshi
@@ -49,6 +51,12 @@ interface ServiceApi {
 
     @POST("client/cart_items.php")
     fun getCartItems(@Body userIdItems: UserIdItems): Deferred<List<CartItemsModel>>
+
+    @GET("county.php")
+    fun getCounties(): Deferred<List<Counties>>
+
+    @POST("client/checkout.php")
+    fun checkout(@Body checkout: CheckOut): Call<CheckoutResponse>
 
 }
 

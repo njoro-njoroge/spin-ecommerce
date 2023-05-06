@@ -1,11 +1,14 @@
-package com.njoro.spin.ui.check_out
+package com.njoro.spin.ui.checkout
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.njoro.spin.network.SpinApi
-import com.njoro.spin.ui.check_out.Model.Counties
+import com.njoro.spin.ui.checkout.Model.CheckOut
+import com.njoro.spin.ui.checkout.Model.Counties
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -17,7 +20,10 @@ enum class CountyApiStatus{
     SUCCCESS,
     DATA,
 }
-class CheckOutViewModel : ViewModel() {
+class CheckOutViewModel(app: Application) : AndroidViewModel(app) {
+
+    private val repository =CheckOutRepository(app)
+    val responseCheckOut = repository.checkOutResponse
 
     private val _status = MutableLiveData<CountyApiStatus>()
     val status: LiveData<CountyApiStatus>
@@ -36,6 +42,7 @@ class CheckOutViewModel : ViewModel() {
     init {
         getCounties()
     }
+
 
     private  fun getCounties(){
         coroutineScope.launch {
@@ -57,6 +64,12 @@ class CheckOutViewModel : ViewModel() {
             }
         }
     }
+
+    fun checkOutNow(userId: String,countyName: String, townName:String, address:String){
+
+        repository.checkOut(CheckOut(userId,countyName, townName, address))
+    }
+
 
     override fun onCleared() {
         super.onCleared()

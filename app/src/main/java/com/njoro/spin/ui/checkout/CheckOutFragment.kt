@@ -109,7 +109,7 @@ class CheckOutFragment : Fragment() {
     private fun checkOutNow(){
         binding!!.apply {
             progressBar.visibility= View.VISIBLE
-
+            btnSubmit.visibility= View.GONE
 
             val countyName = edtCounty.text.toString().trim()
             val townName = edtTown.text.toString().trim()

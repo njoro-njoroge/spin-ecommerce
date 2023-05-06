@@ -11,11 +11,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.njoro.ecommerce.utils.IPreferenceHelper
+import com.njoro.ecommerce.utils.PreferenceManager
 import com.njoro.spin.databinding.FragmentDashboardBinding
 import java.lang.reflect.Array.get
 
 
 class DashboardFragment : Fragment() {
+
+    private val pref: IPreferenceHelper by lazy {
+        PreferenceManager(requireContext())
+    }
 
     private var _binding: FragmentDashboardBinding? = null
 
@@ -50,17 +57,32 @@ class DashboardFragment : Fragment() {
             R.layout.simple_list_item_1, userActions)
         listView.adapter = arrayAdapter
 
-        listView.setOnItemClickListener(){adapterView, view, position, id ->
+        listView.setOnItemClickListener(){
+                adapterView, view, position, id ->
             val itemAtPos = adapterView.getItemAtPosition(position)
-            if(id.equals(0)){
-                Toast.makeText(context,"Clicked item at position 0", Toast.LENGTH_SHORT).show()
-            }
             val itemIdAtPos = adapterView.getItemIdAtPosition(position)
-            Toast.makeText(context, "Click on item at $itemAtPos its item id $itemIdAtPos", Toast.LENGTH_LONG).show()
+            val id = itemIdAtPos
+
+            if(pref.getUsername().isEmpty()){
+                Toast.makeText(context,"Please login",Toast.LENGTH_SHORT).show()
+                return@setOnItemClickListener
+            }
+
+            if(position == 0){
+                gotToProfile()
+                Toast.makeText(context,"Item zero clicked", Toast.LENGTH_SHORT).show()
+            }else{
+
+                Toast.makeText(context, "Click on item at $itemAtPos its item id $itemIdAtPos", Toast.LENGTH_LONG).show()
+
+            }
         }
         return root
     }
 
+    private fun gotToProfile(){
+        this.findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToProfileFragment())
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

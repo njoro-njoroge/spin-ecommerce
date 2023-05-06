@@ -25,7 +25,11 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.njoro.spin.ui.dashboard.DashboardFragment"
-        android:label="DashboardFragment" />
+        android:label="DashboardFragment" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.njoro.spin.ui.auth.login.LoginFragment"
@@ -41,7 +45,11 @@
         android:id="@+id/cartFragment"
         android:name="com.njoro.spin.ui.cart.CartFragment"
         android:label="Cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_checkOutFragment"
+            app:destination="@id/checkOutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.njoro.spin.ui.auth.register.RegisterFragment"
@@ -55,4 +63,14 @@
         android:id="@+id/mainActivity"
         android:name="com.njoro.spin.MainActivity"
         android:label="MainActivity" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.njoro.spin.ui.auth.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/checkOutFragment"
+        android:name="com.njoro.spin.ui.checkout.CheckOutFragment"
+        android:label="Check out"
+        tools:layout="@layout/fragment_check_out" />
 </navigation>

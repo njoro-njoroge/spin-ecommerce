@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.njoro.ecommerce.utils.IPreferenceHelper
 import com.njoro.ecommerce.utils.PreferenceManager
+import com.njoro.spin.MainActivity
 import com.njoro.spin.databinding.FragmentCartBinding
 
 class CartFragment : Fragment() {
@@ -54,8 +56,20 @@ class CartFragment : Fragment() {
             textView.text="Login to view cart"
         }
 
+        binding.btnCheckout.setOnClickListener {
+            goToCheckOut()
+        }
+
+        (activity as MainActivity).hideBottomNav()
      return binding.root
     }
 
+    private fun goToCheckOut() {
+        this.findNavController().navigate(CartFragmentDirections.actionCartFragmentToCheckOutFragment())
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity as MainActivity).showBottomNav()
+    }
 }

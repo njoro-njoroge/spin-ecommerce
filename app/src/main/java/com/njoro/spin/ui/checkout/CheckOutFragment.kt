@@ -1,4 +1,4 @@
-package com.njoro.spin.ui.check_out
+package com.njoro.spin.ui.checkout
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -9,19 +9,23 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.njoro.ecommerce.utils.IPreferenceHelper
+import com.njoro.ecommerce.utils.PreferenceManager
 import com.njoro.spin.MainActivity
 import com.njoro.spin.databinding.FragmentCheckOutBinding
+import kotlin.reflect.jvm.internal.impl.util.Check
 
 class CheckOutFragment : Fragment() {
  private var binding: FragmentCheckOutBinding?= null
+
+    private val pref: IPreferenceHelper by lazy {
+        PreferenceManager(requireContext())
+    }
 
     var countyList: String? = null
 //    private val viewModel: CheckOutViewModel by lazy {
 //        ViewModelProvider(this).get(CheckOutViewModel::class.java)
 //    }
-    companion object {
-        fun newInstance() = CheckOutFragment()
-    }
 
     private lateinit var viewModel: CheckOutViewModel
 
@@ -40,32 +44,37 @@ class CheckOutFragment : Fragment() {
         return binding!!.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CheckOutViewModel::class.java)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel =  ViewModelProvider(requireActivity())[CheckOutViewModel::class.java]
 
-        binding!!.edtTown.setText(viewModel.text.toString())
-
+        binding!!.apply {
+            progressBar.visibility = View.GONE
+            edtCounty.isFocusable= false
+            edtTown.isFocusable= false
+        }
         viewModel.text.observe(viewLifecycleOwner) {
-            binding!!.edtCounty.setText(it)
             countyList=it
         }
-        binding!!.edtCounty.setOnClickListener {
-            alertCounty()
+        binding!!.apply {
+            edtCounty.setOnClickListener {
+                alertCounty()
+            }
+            edtTown.setOnClickListener {
+                alertTowns()
+            }
+        }
+        binding!!.btnSubmit.setOnClickListener {
+            checkOutNow()
         }
 
-    alertCounty()
     }
 
     private fun alertCounty() {
         var country = arrayOf(
-            "India", "Brazil", "Argentina",
-            "Portugal", "France", "England", "Italy"
+            "Kiambu"
         )
-        viewModel.text.observe(viewLifecycleOwner) {
 
-            countyList=it.toString()
-        }
         val builder = AlertDialog.Builder(context)
         builder.setTitle("SELECT COUNTY")
         val array: Array<String> = country
@@ -79,11 +88,28 @@ class CheckOutFragment : Fragment() {
         }
         builder.show()
     }
+    private fun alertTowns() {
+        var country = arrayOf(
+            "Kiambu town",
+            "Limuru",
+            "Thika"
+        )
+
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("SELECT TOWN")
+        val array: Array<String> = country
+        builder.setNegativeButton("Close", null)
+        builder.setSingleChoiceItems(array, -1) { dialogInterface: DialogInterface, i: Int ->
+            binding!!.edtTown.setText(array[i])
+            dialogInterface.dismiss()
+        }
+        builder.show()
+    }
 
     private fun checkOutNow(){
         binding!!.apply {
             progressBar.visibility= View.VISIBLE
-            btnSubmit.visibility= View.GONE
+
 
             val countyName = edtCounty.text.toString().trim()
             val townName = edtTown.text.toString().trim()
@@ -111,8 +137,32 @@ class CheckOutFragment : Fragment() {
                 return
             }
 
+      viewModel.checkOutNow(pref.getUserId(),countyName,townName,address)
 
 
+        }
+        viewModel.responseCheckOut.observe(viewLifecycleOwner){response ->
+            when(response){
+
+                is CheckOutApiStatus.Success->{
+                    Toast.makeText(context, response.success.toString(), Toast.LENGTH_SHORT).show()
+            }
+                is CheckOutApiStatus.Message->{
+                    Toast.makeText(context, response.message,Toast.LENGTH_SHORT).show()
+                }
+                is CheckOutApiStatus.Failure->{
+                    Toast.makeText(context, response.message,Toast.LENGTH_SHORT).show()
+                }
+                is CheckOutApiStatus.IsLoading->{
+                    binding!!.apply {
+                        btnSubmit.isEnabled=! response.isLoading
+                        progressBar.visibility = if(response.isLoading)View.VISIBLE else View.GONE
+                    }
+                }
+
+                else -> {
+                }
+            }
         }
     }
 

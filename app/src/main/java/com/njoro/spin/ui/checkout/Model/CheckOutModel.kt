@@ -1,4 +1,4 @@
-package com.njoro.spin.ui.check_out.Model
+package com.njoro.spin.ui.checkout.Model
 
 import com.squareup.moshi.Json
 
@@ -8,10 +8,12 @@ data class Counties(
 )
 
 data class CheckoutResponse(
-    val stats: Boolean,
+    val status: Boolean,
     val message: String,
 )
 data class CheckOut(
+    @Json(name = "userId")
+    val userId: String,
     @Json(name = "countyName")
     val countyName: String,
     @Json(name = "townName")

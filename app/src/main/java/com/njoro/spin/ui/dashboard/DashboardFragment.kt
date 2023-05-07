@@ -42,10 +42,6 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
 
         var arrayAdapter: ArrayAdapter<String>
         val userActions = arrayOf(
@@ -59,7 +55,7 @@ class DashboardFragment : Fragment() {
 
         listView.setOnItemClickListener(){
                 adapterView, view, position, id ->
-            val itemAtPos = adapterView.getItemAtPosition(position)
+//            val itemAtPos = adapterView.getItemAtPosition(position)
             val itemIdAtPos = adapterView.getItemIdAtPosition(position)
             val id = itemIdAtPos
 
@@ -70,11 +66,9 @@ class DashboardFragment : Fragment() {
 
             if(position == 0){
                 gotToProfile()
-                Toast.makeText(context,"Item zero clicked", Toast.LENGTH_SHORT).show()
-            }else{
-
-                Toast.makeText(context, "Click on item at $itemAtPos its item id $itemIdAtPos", Toast.LENGTH_LONG).show()
-
+            }
+            if(position == 1){
+                goToOrders()
             }
         }
         return root
@@ -82,6 +76,10 @@ class DashboardFragment : Fragment() {
 
     private fun gotToProfile(){
         this.findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToProfileFragment())
+    }
+
+    private fun goToOrders(){
+        this.findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToOrdersFragment())
     }
 
     override fun onDestroyView() {

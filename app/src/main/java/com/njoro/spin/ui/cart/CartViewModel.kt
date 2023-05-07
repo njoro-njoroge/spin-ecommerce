@@ -1,25 +1,16 @@
 package com.njoro.spin.ui.cart
 
-import android.app.Application
 import android.util.Log
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.njoro.ecommerce.utils.IPreferenceHelper
-import com.njoro.ecommerce.utils.PreferenceManager
 import com.njoro.spin.network.SpinApi
-import com.njoro.spin.ui.auth.model.UserLogin
 import com.njoro.spin.ui.cart.model.CartItemsModel
-import com.njoro.spin.ui.cart.model.CartItemsResponse
 import com.njoro.spin.ui.cart.model.UserIdItems
-import com.njoro.spin.ui.home.ProductApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.await
 
 enum class CartApiStatus {
     LOADING,

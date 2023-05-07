@@ -27,7 +27,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.njoro.spin.R
 import com.njoro.spin.ui.cart.model.CartItemsModel
-import com.njoro.spin.ui.cart.model.CartItemsResponse
 
 
 @BindingAdapter("cartListData")

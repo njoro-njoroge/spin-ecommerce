@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import com.njoro.ecommerce.utils.IPreferenceHelper
 import com.njoro.ecommerce.utils.PreferenceManager
 import com.njoro.spin.MainActivity
-import com.njoro.spin.R
 import com.njoro.spin.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -31,7 +30,6 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
      _binding =FragmentProfileBinding.inflate(inflater, container, false)
-
         (activity as MainActivity).hideBottomNav()
 
         bind()
@@ -40,7 +38,7 @@ class ProfileFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         // TODO: Use the ViewModel
 
     }

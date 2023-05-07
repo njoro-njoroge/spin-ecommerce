@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -73,4 +76,8 @@
         android:name="com.njoro.spin.ui.checkout.CheckOutFragment"
         android:label="Check out"
         tools:layout="@layout/fragment_check_out" />
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.njoro.spin.ui.orders.OrdersFragment"
+        android:label="OrdersFragment" />
 </navigation>

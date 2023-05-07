@@ -33,6 +33,10 @@ class OrdersViewModel : ViewModel() {
     val orderList: LiveData<List<OrdersModel>>
     get() = _orderList
 
+    private var _navigateToOrderItems = MutableLiveData<OrdersModel?>()
+    val navigateToOrderItems: LiveData<OrdersModel?>
+    get() = _navigateToOrderItems
+
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
@@ -68,6 +72,12 @@ class OrdersViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
-        _status!!.value = null
+//        _status.value = null
+    }
+    fun showOrderItems(ordersModel: OrdersModel){
+        _navigateToOrderItems.value= ordersModel
+    }
+    fun showOrderItemsComplete(){
+        _navigateToOrderItems.value = null
     }
 }

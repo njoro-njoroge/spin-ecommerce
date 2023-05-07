@@ -1,7 +1,9 @@
 package com.njoro.spin.ui.orders
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -39,11 +41,13 @@ class OrderAdapter(private val onClickListener: OnClickListener):
         holder.itemView.setOnClickListener {
             onClickListener.onClick(orders)
 
+            Log.e("Clicked item",orders.toString())
         }
         holder.bind(orders)
     }
-    class OnClickListener(val cliclListener:(order: OrdersModel)->Unit){
-        fun onClick(order: OrdersModel)= cliclListener(order)
+
+    class OnClickListener(val clickListener:(order: OrdersModel)->Unit){
+        fun onClick(order: OrdersModel)= clickListener(order)
     }
 
 }

@@ -31,23 +31,15 @@ class CartFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.viewModel =viewModel
-//        viewModel = ViewModelProvider(this)[CartViewModel::class.java]
-//        val textView: TextView = binding.txvDetails
 
          binding.photosGrid.adapter = CartItemsAdapters(CartItemsAdapters.OnClickListener{
 
          })
-//         binding.txvDetails.text =viewModel.items.toString()
-        Toast.makeText(context,pref.getEmail(),Toast.LENGTH_SHORT).show()
 
-//        viewModel.status.observe(viewLifecycleOwner){
-//            textView.text = it.toString()
-//            Toast.makeText(context,it.toString(), Toast.LENGTH_SHORT).show()
-//        }
         val textView: TextView = binding.textStatus
         viewModel.text.observe(viewLifecycleOwner){
 //            textView.text = it
-            Toast.makeText(context,it.toString(),Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context,it.toString(),Toast.LENGTH_SHORT).show()
         }
 
         if(pref.getUsername().isNotEmpty()){

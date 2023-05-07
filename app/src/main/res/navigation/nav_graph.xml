@@ -32,6 +32,7 @@
         <action
             android:id="@+id/action_dashboardFragment_to_ordersFragment"
             app:destination="@id/ordersFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -79,5 +80,18 @@
     <fragment
         android:id="@+id/ordersFragment"
         android:name="com.njoro.spin.ui.orders.OrdersFragment"
-        android:label="OrdersFragment" />
+        android:label="Orders" >
+        <action
+            android:id="@+id/action_ordersFragment_to_orderItemsFragment"
+            app:destination="@id/orderItemsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderItemsFragment"
+        android:name="com.njoro.spin.ui.orders.OrderItemsFragment"
+        android:label="Order items"
+        tools:layout="@layout/fragment_order_items">
+        <argument
+            android:name="selectedOrder"
+            app:argType="com.njoro.spin.ui.orders.model.OrdersModel"/>
+    </fragment>
 </navigation>

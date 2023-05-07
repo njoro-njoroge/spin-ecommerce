@@ -1,16 +1,18 @@
 package com.njoro.spin
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.njoro.spin.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,11 +45,16 @@ class MainActivity : AppCompatActivity() {
 
 //        navView.menu.findItem(R.id.loginFragment).isVisible = false
 
-//        showBottomNav()
 
 
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == android.R.id.home) {
+            onBackPressedDispatcher.onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     fun hideBottomNav() {
         navView.visibility = View.GONE

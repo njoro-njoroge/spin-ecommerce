@@ -13,6 +13,7 @@ import com.njoro.ecommerce.utils.IPreferenceHelper
 import com.njoro.ecommerce.utils.PreferenceManager
 import com.njoro.spin.MainActivity
 import com.njoro.spin.databinding.FragmentCheckOutBinding
+import com.njoro.spin.ui.checkout.Model.Counties
 import kotlin.reflect.jvm.internal.impl.util.Check
 
 class CheckOutFragment : Fragment() {

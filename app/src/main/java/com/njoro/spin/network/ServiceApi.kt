@@ -7,6 +7,9 @@ import com.njoro.spin.ui.cart.model.UserIdItems
 import com.njoro.spin.ui.checkout.Model.CheckOut
 import com.njoro.spin.ui.checkout.Model.CheckoutResponse
 import com.njoro.spin.ui.checkout.Model.Counties
+import com.njoro.spin.ui.orders.model.OrderResponse
+import com.njoro.spin.ui.orders.model.OrdersModel
+import com.njoro.spin.ui.orders.model.UserOrders
 import com.njoro.spin.ui.productdetails.model.CartModel
 import com.njoro.spin.ui.productdetails.model.CartResponse
 import com.squareup.moshi.Moshi
@@ -57,6 +60,9 @@ interface ServiceApi {
 
     @POST("client/checkout.php")
     fun checkout(@Body checkout: CheckOut): Call<CheckoutResponse>
+
+    @POST("client/orders.php")
+    fun orders(@Body userOrders: UserOrders):Call<OrderResponse>
 
 }
 

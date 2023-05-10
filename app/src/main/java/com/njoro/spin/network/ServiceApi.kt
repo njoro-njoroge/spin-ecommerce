@@ -21,7 +21,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 
-private const val BASE_URL="http://192.168.0.110/hustle_free/spin_knit/api_endpoint/"
+private const val BASE_URL="http://192.168.1.97/hustle_free/spin_knit/api_endpoint/"
 //private const val BASE_URL="https://mars.udacity.com/"
 
 

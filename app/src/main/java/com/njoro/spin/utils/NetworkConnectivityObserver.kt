@@ -3,9 +3,7 @@ package com.njoro.spin.utils
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
-import android.net.NetworkCapabilities
 import android.os.Build
-import androidx.core.content.ContextCompat.getSystemService
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -22,7 +20,7 @@ class NetworkConnectivityObserver(private val context: Context)
             val callback = object : ConnectivityManager.NetworkCallback(){
                 override fun onAvailable(network: Network) {
                     super.onAvailable(network)
-                    launch { send(ConnectivityObserver.Status.Available) }
+                    launch { send(ConnectivityObserver.Status.Online) }
                 }
 
                 override fun onUnavailable() {

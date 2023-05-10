@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         connectivityObserver = NetworkConnectivityObserver(applicationContext)
         connectivityObserver.observe().onEach {
             println("Status is $it")
-            if(it.toString() =="Available"){
+            if(it.toString() =="Online"){
 
                 Toast.makeText(this, "Online", Toast.LENGTH_SHORT).show()
             }else{

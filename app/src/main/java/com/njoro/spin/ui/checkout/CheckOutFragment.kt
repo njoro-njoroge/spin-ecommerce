@@ -9,24 +9,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.njoro.ecommerce.utils.IPreferenceHelper
-import com.njoro.ecommerce.utils.PreferenceManager
+import com.njoro.ecommerce.utils.SessionManager
 import com.njoro.spin.MainActivity
 import com.njoro.spin.databinding.FragmentCheckOutBinding
-import com.njoro.spin.ui.checkout.Model.Counties
-import kotlin.reflect.jvm.internal.impl.util.Check
 
 class CheckOutFragment : Fragment() {
  private var binding: FragmentCheckOutBinding?= null
 
-    private val pref: IPreferenceHelper by lazy {
-        PreferenceManager(requireContext())
-    }
+
+    private lateinit var sessionManager: SessionManager;
 
     var countyList: String? = null
-//    private val viewModel: CheckOutViewModel by lazy {
-//        ViewModelProvider(this).get(CheckOutViewModel::class.java)
-//    }
+
 
     private lateinit var viewModel: CheckOutViewModel
 
@@ -36,6 +30,8 @@ class CheckOutFragment : Fragment() {
     ): View? {
         binding = FragmentCheckOutBinding.inflate(inflater,container, false)
 //        return inflater.inflate(R.layout.fragment_check_out, container, false)
+
+        sessionManager = SessionManager(requireContext())
 
         binding!!.lifecycleOwner = this
 
@@ -137,8 +133,10 @@ class CheckOutFragment : Fragment() {
                 Toast.makeText(context,"Please enter an address", Toast.LENGTH_SHORT).show()
                 return
             }
+            val user = sessionManager.getUserDetails()
+            val userId = user[SessionManager.KEY_USER_ID]
 
-      viewModel.checkOutNow(pref.getUserId(),countyName,townName,address)
+      viewModel.checkOutNow(userId.toString(),countyName,townName,address)
 
 
         }

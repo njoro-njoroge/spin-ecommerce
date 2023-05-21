@@ -6,18 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.njoro.ecommerce.utils.IPreferenceHelper
-import com.njoro.ecommerce.utils.PreferenceManager
+import com.njoro.ecommerce.utils.SessionManager
 import com.njoro.spin.MainActivity
 import com.njoro.spin.databinding.FragmentProfileBinding
+import com.njoro.spin.databinding.FragmentProfileBinding.inflate
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     val binding get() = _binding
-    private val pref: IPreferenceHelper by lazy {
-        PreferenceManager(requireContext())
-    }
+    private lateinit var sessionManager: SessionManager
 
     companion object {
         fun newInstance() = ProfileFragment()
@@ -29,7 +27,9 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-     _binding =FragmentProfileBinding.inflate(inflater, container, false)
+     _binding = inflate(inflater, container, false)
+
+        sessionManager= SessionManager(requireContext())
         (activity as MainActivity).hideBottomNav()
 
         bind()
@@ -44,11 +44,13 @@ class ProfileFragment : Fragment() {
     }
 
     private fun bind(){
+        val user = sessionManager.getUserDetails()
+
         binding!!.apply {
-            txvName.text = pref.getFirstName()+" "+pref.getLastName()
-            txvUsername.text = pref.getUsername()
-            txvPhoneNumber.text = pref.getPhoneNo()
-            txvEmail.text = pref.getEmail()
+            txvName.text = user[SessionManager.KEY_USER_FIRST_NAME]+" "+user[SessionManager.KEY_USER_FIRST_NAME]
+            txvUsername.text = user[SessionManager.KEY_USER_NAME]
+            txvPhoneNumber.text = user[SessionManager.KEY_USER_PHONE_NUMBER]
+            txvEmail.text = user[SessionManager.KEY_USER_EMAIL]
         }
     }
 

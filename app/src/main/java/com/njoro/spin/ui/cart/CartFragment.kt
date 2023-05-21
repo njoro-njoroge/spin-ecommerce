@@ -7,27 +7,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.njoro.ecommerce.utils.IPreferenceHelper
-import com.njoro.ecommerce.utils.PreferenceManager
+import com.njoro.ecommerce.utils.SessionManager
 import com.njoro.spin.MainActivity
 import com.njoro.spin.databinding.FragmentCartBinding
 
 class CartFragment : Fragment() {
 
-    private val pref: IPreferenceHelper by lazy {
-        PreferenceManager(requireContext())
-    }
+  private lateinit var sessionManager: SessionManager
+
 //    private var viewModel = CartViewModel()
     private val viewModel: CartViewModel by lazy {
-        ViewModelProvider(this).get(CartViewModel::class.java)
+    ViewModelProvider(this)[CartViewModel::class.java]
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                          savedInstanceState: Bundle? ): View? {
         val binding = FragmentCartBinding.inflate(inflater)
 
+        sessionManager = SessionManager(requireContext())
+       val user= sessionManager.getUserDetails()
+        val userId = user[SessionManager.KEY_USER_ID]
         binding.lifecycleOwner = this
 
         binding.viewModel =viewModel
@@ -42,8 +42,8 @@ class CartFragment : Fragment() {
 //            Toast.makeText(context,it.toString(),Toast.LENGTH_SHORT).show()
         }
 
-        if(pref.getUsername().isNotEmpty()){
-            viewModel.getItems(pref.getUserId())
+        if(sessionManager.isLoggedIn()){
+            viewModel.getItems(userId.toString())
         }else{
             textView.text="Login to view cart"
         }

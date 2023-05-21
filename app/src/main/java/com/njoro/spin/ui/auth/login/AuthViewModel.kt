@@ -5,15 +5,13 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.njoro.ecommerce.utils.SessionManager
 import com.njoro.spin.ui.auth.model.UserLogin
 import com.njoro.spin.ui.auth.repository.LoginRepository
 
-class LoginViewModel(app: Application) : AndroidViewModel(app) {
+class AuthViewModel(app: Application) : AndroidViewModel(app) {
 
     private  val sessionManager = SessionManager(app)
-//    private val sessionManager= app.getSharedPreferences()
     private var _isUserLoggedIn = MutableLiveData<Boolean>()
     val isUserLoggedIn : LiveData<Boolean> = _isUserLoggedIn
 
@@ -24,19 +22,16 @@ class LoginViewModel(app: Application) : AndroidViewModel(app) {
     private val _text = MutableLiveData<String>()
     val text: LiveData<String> = _text
 
-    init {
-        loginState()
-    }
 
-    private fun loginState(){
+    fun loginState(){
          _isUserLoggedIn.value = sessionManager.isLoggedIn()
      }
 
-    fun login(username: String, password: String) {
+    fun login(userType:String,username: String, password: String) {
 
-        if (username.isNotEmpty() && password.isNotEmpty()) {
+        if (userType.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty()) {
             _text.value = "Loading..."
-            repository.login(UserLogin(username, password))
+            repository.login(UserLogin(userType,username, password))
         } else {
 
             Log.e("TAG", "Please enter all the details")
@@ -46,5 +41,9 @@ class LoginViewModel(app: Application) : AndroidViewModel(app) {
     }
     fun clearLiveData() {
         _text!!.value = null
+    }
+
+    fun clearLoginResponseData(){
+        repository.clearLiveData()
     }
 }

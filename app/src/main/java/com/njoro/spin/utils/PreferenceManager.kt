@@ -2,14 +2,17 @@ package com.njoro.ecommerce.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import java.util.*
 
 open class PreferenceManager  constructor(context: Context) : IPreferenceHelper {
-    private val PREFS_NAME = "savedUserPrefs"
+    private val PREFSNAME = "savedUserPrefs"
     private var preferences: SharedPreferences
 
     init {
-        preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-    }    override fun setUserId(userId: String) {
+        preferences = context.getSharedPreferences(PREFSNAME, Context.MODE_PRIVATE)
+    }
+
+    override fun setUserId(userId: String) {
         preferences[USER_ID] = userId
     }
     override fun getUserId(): String {

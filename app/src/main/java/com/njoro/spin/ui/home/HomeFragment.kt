@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.njoro.ecommerce.utils.SessionManager
+import com.njoro.spin.MainActivity
+import com.njoro.spin.R
 import com.njoro.spin.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -16,15 +19,23 @@ class HomeFragment : Fragment() {
 private val viewModel: HomeViewModel by lazy {
     ViewModelProvider(this).get(HomeViewModel::class.java)
 }
+    private lateinit var  sessionManager: SessionManager
 
-    /**
-     * Inflates the layout with Data Binding, sets its lifecycle owner to the OverviewFragment
-     * to enable Data Binding to observe LiveData, and sets up the RecyclerView with an adapter.
-     */
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding = FragmentHomeBinding.inflate(inflater)
 
+        sessionManager =SessionManager(requireContext())
+        val user = sessionManager.getUserDetails()
+
+        if(sessionManager.isLoggedIn()){
+            if(user[SessionManager.KEY_USER_TYPE] !="Client"){
+                findNavController().popBackStack(R.id.homeFragment, false)
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToEmployeeDashboard())
+
+            }
+        }
 //        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 

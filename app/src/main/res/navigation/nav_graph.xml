@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_homeFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_employeeDashboard"
+            app:destination="@id/employeeDashboard" />
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
@@ -44,6 +47,12 @@
         <action
             android:id="@+id/action_loginFragment_to_mainActivity"
             app:destination="@id/mainActivity" />
+        <action
+            android:id="@+id/action_loginFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_employeeDashboard"
+            app:destination="@id/employeeDashboard" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -93,5 +102,35 @@
         <argument
             android:name="selectedOrder"
             app:argType="com.njoro.spin.ui.orders.model.OrdersModel"/>
+    </fragment>
+    <fragment
+        android:id="@+id/employeeDashboard"
+        android:name="com.njoro.spin.employees.EmployeeDashboard"
+        android:label="Employee Dashboard" >
+        <action
+            android:id="@+id/action_employeeDashboard_to_profileFragment"
+            app:destination="@id/profileFragment" />
+
+        <action
+            android:id="@+id/action_employeeDashboard_to_clientOrders"
+            app:destination="@id/clientOrders" />
+        <action
+            android:id="@+id/action_employeeDashboard_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientOrders"
+        android:name="com.njoro.spin.employees.clientOrders.ClientOrders"
+        android:label="Orders"
+        tools:layout="@layout/fragment_client_orders" >
+        <action
+            android:id="@+id/action_clientOrders_to_clientItems"
+            app:destination="@id/clientItems" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientItems"
+        android:name="com.njoro.spin.employees.clientOrders.ClientItems"
+        android:label="ClientItems">
+
     </fragment>
 </navigation>

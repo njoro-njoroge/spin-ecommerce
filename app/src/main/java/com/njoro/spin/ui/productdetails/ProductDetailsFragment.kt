@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.njoro.ecommerce.utils.IPreferenceHelper
-import com.njoro.ecommerce.utils.PreferenceManager
+import com.njoro.ecommerce.utils.SessionManager
 import com.njoro.spin.MainActivity
 import com.njoro.spin.databinding.FragmentProductDetailsBinding
 import com.njoro.spin.ui.productdetails.repository.AddToCartResponseResults
@@ -18,9 +17,7 @@ class ProductDetailsFragment : Fragment() {
 
     private var _binding : FragmentProductDetailsBinding? = null
     val binding get() = _binding
-    private val pref: IPreferenceHelper by lazy {
-        PreferenceManager(requireContext())
-    }
+    private lateinit var sessionManager: SessionManager
     private var productId: String? =null
 
     companion object {
@@ -56,7 +53,7 @@ class ProductDetailsFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+       sessionManager = SessionManager(requireContext())
         bind()
 
     }
@@ -73,8 +70,9 @@ class ProductDetailsFragment : Fragment() {
 
                     return@setOnClickListener
                 }
-
-                viewModel.addToCart(pref.getUserId(),productId!!,quantity)
+                val user = sessionManager.getUserDetails()
+                val userId = user[SessionManager.KEY_USER_ID]
+                viewModel.addToCart(userId.toString(),productId!!,quantity)
                 getResponse()
            }
         }

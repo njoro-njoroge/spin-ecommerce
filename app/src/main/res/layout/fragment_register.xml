@@ -60,7 +60,6 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:hint="First name"
-                    android:text="@{viewModel.user.firstName}"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -81,7 +80,6 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:hint="last Name"
-                    android:text="@{viewModel.user.lastName}"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -102,7 +100,6 @@
                     android:layout_height="wrap_content"
                     android:inputType="phone"
                     android:hint="Phone number"
-                    android:text="@{viewModel.user.phoneNumber}"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -123,7 +120,6 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:hint="Username"
-                    android:text="@{viewModel.user.phoneNumber}"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -145,7 +141,6 @@
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
                     android:hint="Email"
-                    android:text="@{viewModel.user.email}"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -167,7 +162,6 @@
                     android:layout_height="wrap_content"
                     android:inputType="numberPassword"
                     android:hint="Password"
-                    android:text="@{viewModel.user.password}"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>

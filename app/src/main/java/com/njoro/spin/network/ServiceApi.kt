@@ -1,6 +1,7 @@
 package com.njoro.spin.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.njoro.spin.employees.model.ClientOrderResponse
 import com.njoro.spin.ui.auth.model.*
 import com.njoro.spin.ui.cart.model.CartItemsModel
 import com.njoro.spin.ui.cart.model.UserIdItems
@@ -19,9 +20,19 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 
-private const val BASE_URL="http://192.168.1.97/hustle_free/spin_knit/api_endpoint/"
+enum class OrdersApiFilter(val value: String){
+    SHOW_PENDING("Pending approval"),
+    SHOW_APPROVED("Approved"),
+    SHOW_SHIPPING("Shipping"),
+    SHOW_Delivered("Delivered"),
+    SHOW_COMFRIMED_DELIVERY("Confirmed delivery")
+
+}
+
+private const val BASE_URL = "http://192.168.0.112/hustle_free/spin_knit/api_endpoint/"
 //private const val BASE_URL="https://mars.udacity.com/"
 
 
@@ -44,8 +55,8 @@ interface ServiceApi {
     @POST("client/register.php")
     fun register(@Body register: UserRegister): Call<RegisterResponse>
 
-    @POST("client/login.php")
-    fun login(@Body login:UserLogin): Call<LoginResponse>
+    @POST("select_user.php")
+    fun login(@Body login: UserLogin): Call<LoginResponse>
 
     @POST("client/send_to_cart.php")
     fun addToCart(@Body addToCart: CartModel): Call<CartResponse>
@@ -60,14 +71,18 @@ interface ServiceApi {
     fun checkout(@Body checkout: CheckOut): Call<CheckoutResponse>
 
     @POST("client/orders.php")
-    fun orders(@Body userOrders: UserOrders):Call<OrderResponse>
+    fun orders(@Body userOrders: UserOrders): Call<OrderResponse>
 
     @POST("order_items.php")
     fun orderItems(@Body orderItemsById: OrderItemsById): Call<OrderItemsResponse>
 
+    //=======ORDERS ===========
+    @GET("staff/client_orders.php")
+    fun getClientOrdes(@Query("filter") type: String): Call<ClientOrderResponse>
+
 }
 
-object SpinApi{
+object SpinApi {
     val retrofitService: ServiceApi by lazy {
         retrofit.create(ServiceApi::class.java)
     }

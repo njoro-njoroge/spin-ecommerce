@@ -36,6 +36,8 @@ data class LoginResponse(
     val userType: String = "",
 )
 data class UserLogin(
+    @Json(name = "userType")
+    val userType: String = "",
     @Json(name = "username")
     val username: String = "",
     @Json(name = "password")

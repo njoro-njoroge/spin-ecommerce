@@ -1,11 +1,14 @@
 package com.njoro.spin.employees.clientOrders
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bumptech.glide.util.ContentLengthInputStream
+import com.njoro.spin.employees.clientOrders.Repository.ApproveOrderRespistory
+import com.njoro.spin.employees.model.ApproveOrder
 import com.njoro.spin.employees.model.ClientOrderModels
 import com.njoro.spin.network.SpinApi
 import com.njoro.spin.ui.orders.model.OrderItems
@@ -26,8 +29,10 @@ enum class  ClientItemsApiResponse{
 class ClientItemsViewModel(clientOrderModels: ClientOrderModels, app: Application)
     : AndroidViewModel(app) {
 
-        private var _selectedOrder  = MutableLiveData<ClientOrderModels>()
-    val selectedOrder: LiveData<ClientOrderModels> = _selectedOrder
+    private val repository = ApproveOrderRespistory(app)
+    val approveResponse = repository.approveResponse
+//        private var _selectedOrder  = MutableLiveData<ClientOrderModels>()
+//    val selectedOrder: LiveData<ClientOrderModels> = _selectedOrder
 
     private var _orderItems = MutableLiveData<List<OrderItems>>()
     val orderItems: LiveData<List<OrderItems>> = _orderItems
@@ -37,9 +42,9 @@ class ClientItemsViewModel(clientOrderModels: ClientOrderModels, app: Applicatio
     val status : LiveData<ClientItemsApiResponse> = _status
 
 
-    init {
-        _selectedOrder.value = clientOrderModels
-    }
+//    init {
+////        _selectedOrder.value = clientOrderModels
+//    }
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
@@ -53,10 +58,20 @@ class ClientItemsViewModel(clientOrderModels: ClientOrderModels, app: Applicatio
             val listItemsResults = getClientItems.await()
             _status.value= ClientItemsApiResponse.SUCCESS
 
+            Log.e("API RESPONSE ",listItemsResults.toString())
+
             _orderItems.value = listItemsResults.data
         }catch (e: Exception){
             _status.value = ClientItemsApiResponse.ERROR
         }
+        }
+    }
+
+    fun approveOrder(orderID: String){
+        if(orderID.isNotEmpty()){
+            repository.approve(ApproveOrder(orderID))
+        }else{
+            Log.e("ERROR ","ORDER MISSING ID")
         }
     }
 }

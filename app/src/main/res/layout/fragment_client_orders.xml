@@ -31,7 +31,7 @@
             app:spanCount="1"
             app:listDataClientOrders="@{viewOrdersModel.orderList}"
             tools:itemCount="16"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="1dp"
             tools:listitem="@layout/list_client_orders" />
 
         <TextView

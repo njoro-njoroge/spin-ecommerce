@@ -123,6 +123,11 @@
         android:name="com.njoro.spin.employees.clientOrders.ClientOrders"
         android:label="Orders"
         tools:layout="@layout/fragment_client_orders" >
+        <argument
+            android:name="orderStatus"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_clientOrders_to_clientItems"
             app:destination="@id/clientItems" />
@@ -131,6 +136,8 @@
         android:id="@+id/clientItems"
         android:name="com.njoro.spin.employees.clientOrders.ClientItems"
         android:label="ClientItems">
-
+    <argument
+        android:name="selectedOrder"
+        app:argType="com.njoro.spin.employees.model.ClientOrderModels"/>
     </fragment>
 </navigation>

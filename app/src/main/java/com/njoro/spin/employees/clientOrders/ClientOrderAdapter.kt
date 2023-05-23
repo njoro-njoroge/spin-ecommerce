@@ -10,7 +10,7 @@ import com.njoro.spin.databinding.ListClientOrdersBinding
 import com.njoro.spin.employees.model.ClientOrderModels
 
 class ClientOrderAdapter(private val onClickListener: OnClickListener):
- ListAdapter<ClientOrderModels, ClientOrderAdapter.ClientOrderViewHolder>(DiffClallBack){
+ ListAdapter<ClientOrderModels, ClientOrderAdapter.ClientOrderViewHolder>(DiffCallBack){
 
                 class ClientOrderViewHolder(private val binding: ListClientOrdersBinding):
                         RecyclerView.ViewHolder(binding.root){
@@ -20,7 +20,7 @@ class ClientOrderAdapter(private val onClickListener: OnClickListener):
                             }
                         }
 
-    companion object DiffClallBack: DiffUtil.ItemCallback<ClientOrderModels>(){
+    companion object DiffCallBack: DiffUtil.ItemCallback<ClientOrderModels>(){
         override fun areItemsTheSame(
             oldItem: ClientOrderModels,
             newItem: ClientOrderModels

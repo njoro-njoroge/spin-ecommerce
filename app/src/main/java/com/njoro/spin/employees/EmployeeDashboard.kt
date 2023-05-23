@@ -120,13 +120,4 @@ class EmployeeDashboard : Fragment() {
             .navigate(EmployeeDashboardDirections.actionEmployeeDashboardToLoginFragment())
 //        findNavController().popBackStack()
     }
-    companion object {
-        fun newInstance(param: String): ClientOrders {
-            val fragment = ClientOrders()
-            val args = Bundle()
-            args.putString("key", param)
-            fragment.arguments = args
-            return fragment
-        }
-    }
 }

@@ -21,3 +21,11 @@ data class ClientOrderModels(
     val orderDate: String,
     val orderStatus: String
 ): Parcelable
+
+data class ApproveResponse(
+    val status:Boolean,
+    val message:String,
+)
+data class ApproveOrder (
+    val orderId: String
+        )

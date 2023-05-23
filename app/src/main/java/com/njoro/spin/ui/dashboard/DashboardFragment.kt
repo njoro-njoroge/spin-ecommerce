@@ -81,13 +81,13 @@ class DashboardFragment : Fragment() {
     }
 
     private fun gotToProfile() {
-//        val action = EmployeeDashboardDirections.actionEmployeeDashboardToProfileFragment()
-//        findNavController().navigate(action)
+        val action = DashboardFragmentDirections.actionDashboardFragmentToProfileFragment()
+        findNavController().navigate(action)
     }
 
     private fun goToOrders() {
-//        this.findNavController()
-//            .navigate(DashboardFragmentDirections.actionDashboardFragmentToOrdersFragment())
+        this.findNavController()
+            .navigate(DashboardFragmentDirections.actionDashboardFragmentToOrdersFragment())
     }
 
     private fun logoutAlert() {

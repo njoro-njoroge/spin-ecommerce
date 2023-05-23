@@ -1,6 +1,8 @@
 package com.njoro.spin.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.njoro.spin.employees.model.ApproveOrder
+import com.njoro.spin.employees.model.ApproveResponse
 import com.njoro.spin.employees.model.ClientOrderResponse
 import com.njoro.spin.ui.auth.model.*
 import com.njoro.spin.ui.cart.model.CartItemsModel
@@ -32,7 +34,7 @@ enum class OrdersApiFilter(val value: String){
 
 }
 
-private const val BASE_URL = "http://192.168.0.112/hustle_free/spin_knit/api_endpoint/"
+private const val BASE_URL = "http://192.168.86.201/hustle_free/spin_knit/api_endpoint/"
 //private const val BASE_URL="https://mars.udacity.com/"
 
 
@@ -80,6 +82,8 @@ interface ServiceApi {
     @GET("staff/client_orders.php")
     fun getClientOrdes(@Query("filter") type: String): Call<ClientOrderResponse>
 
+    @POST("staff/approve_order.php")
+    fun approveOrders(@Body approveOrder: ApproveOrder): Call<ApproveResponse>
 }
 
 object SpinApi {

@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.njoro.ecommerce.utils.SessionManager
 import com.njoro.spin.MainActivity
 import com.njoro.spin.databinding.FragmentEmployeeDashboardBinding
+import com.njoro.spin.employees.clientOrders.ClientOrders
 import com.njoro.spin.ui.dashboard.DashboardFragmentDirections
 
 class EmployeeDashboard : Fragment() {
@@ -25,6 +26,8 @@ class EmployeeDashboard : Fragment() {
     private lateinit var viewModel: EmployeeDashboardViewModel
     private var _binding : FragmentEmployeeDashboardBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var orderStatus: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,6 +70,12 @@ class EmployeeDashboard : Fragment() {
 
             }
             if (position == 1) {
+                orderStatus= "Pending approval"
+                goToOrders()
+
+            }
+            if(position == 2){
+                orderStatus="Approved"
                 goToOrders()
             }
             if (position == 4) {
@@ -79,7 +88,10 @@ class EmployeeDashboard : Fragment() {
     this.findNavController().navigate(EmployeeDashboardDirections.actionEmployeeDashboardToProfileFragment())
     }
     private fun goToOrders(){
-        this.findNavController().navigate(EmployeeDashboardDirections.actionEmployeeDashboardToClientOrders())
+
+        this.findNavController()
+            .navigate(EmployeeDashboardDirections
+                .actionEmployeeDashboardToClientOrders(orderStatus =orderStatus ))
     }
 
     private fun logoutAlert() {
@@ -107,5 +119,14 @@ class EmployeeDashboard : Fragment() {
         findNavController()
             .navigate(EmployeeDashboardDirections.actionEmployeeDashboardToLoginFragment())
 //        findNavController().popBackStack()
+    }
+    companion object {
+        fun newInstance(param: String): ClientOrders {
+            val fragment = ClientOrders()
+            val args = Bundle()
+            args.putString("key", param)
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

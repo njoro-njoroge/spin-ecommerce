@@ -84,7 +84,6 @@
             android:layout_height="wrap_content"
             android:padding="6dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-
             app:spanCount="1"
             app:listDataItems="@{viewModel.orderItems}"
             tools:itemCount="16"

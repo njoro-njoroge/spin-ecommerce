@@ -155,7 +155,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun goToEmployeeDashboard() {
-       findNavController().popBackStack(R.id.loginFragment,false)
+       findNavController().popBackStack(R.id.loginFragment,true)
         findNavController()
             .navigate(LoginFragmentDirections.actionLoginFragmentToEmployeeDashboard())
         (activity as MainActivity).checkUserSession()

@@ -40,11 +40,12 @@ class ClientOrdersViewModel : ViewModel() {
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    init {
-        getClientOrders(OrdersApiFilter.SHOW_PENDING)
-    }
+//    init {
+//        getClientOrders(OrdersApiFilter.SHOW_PENDING)
+//    }
     private fun getClientOrders(filter: OrdersApiFilter){
         coroutineScope.launch{
+            Log.e("FILTER PARAMS ", filter.value)
             var getOrderList = SpinApi.retrofitService.getClientOrdes(filter.value)
             try {
                 _status.value = ClientOrdersApiStatus.LOADING
@@ -75,10 +76,10 @@ class ClientOrdersViewModel : ViewModel() {
         viewModelJob.cancel()
     }
 
-    fun showOrderItems(clientOrderModels: ClientOrderModels){
+    fun showSelectedOrder(clientOrderModels: ClientOrderModels){
         _navigateToOrderItems.value = clientOrderModels
     }
-    fun showOrderItemsComplete(){
+    fun showSelectedOrderComplete(){
         _navigateToOrderItems.value = null
     }
 
